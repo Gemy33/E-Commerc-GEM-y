@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using RouteDev.Ecommerc.Presentation.Controllers.Base;
 
 namespace RouteDev.Ecommerce.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+   
+    public class WeatherForecastController : BaseController
     {
         private static readonly string[] Summaries = new[]
         {

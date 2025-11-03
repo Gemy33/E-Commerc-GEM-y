@@ -15,7 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core\RouteDev.Ecommerc.Services\RouteDev.Ecommerc.Services.csproj" />
+    <ProjectReference Include="..\Infrastructure\RouteDev.Ecommerc.Presentation\RouteDev.Ecommerc.Presentation.csproj" />
     <ProjectReference Include="..\Infrastructure\RouteDev.Ecommerc.Presistance\RouteDev.Ecommerc.Presistance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 
 </Project>
