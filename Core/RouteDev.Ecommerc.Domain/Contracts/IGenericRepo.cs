@@ -11,6 +11,7 @@ namespace RouteDev.Ecommerc.Domain.Contracts
         where TEntity : BaseEntity<Tkey>
         where Tkey : IEquatable<Tkey>
     {
+        public Task<int> CountAsync(IBaseSpecifications<TEntity> specs);
         Task<IEnumerable<TEntity>> GetAllAsync(bool WithTracking = false);
         public  Task<IEnumerable<TEntity>> GetAllWithSpecsAsync(IBaseSpecifications<TEntity> specs, bool withTracking = false);
         Task<TEntity?> GetByIdAsync(Tkey id);

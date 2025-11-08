@@ -10,14 +10,10 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Services.Mapping
 {
-    public class ProductUrlResolver : IValueResolver<Product, ProductDto, string>
+    public class ProductUrlResolver(IConfiguration configuration) : IValueResolver<Product, ProductDto, string>
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration configuration = configuration;
 
-        public ProductUrlResolver(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
         public string Resolve(Product source, ProductDto destination, string destMember, ResolutionContext context)
         {
             if (!string.IsNullOrEmpty(source.PictureUrl))

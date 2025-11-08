@@ -20,6 +20,16 @@ namespace RouteDev.Ecommerc.Domain.Specifications
 
         public Expression<Func<TEntity, object>> OrderByDescending { get; private set; } = null;
         public Expression<Func<TEntity, bool>> Criatily { get; set; }
+        public int Take { get; set ; }
+        public int Skip { get; set; }
+        public bool IsPagingEnabled { get; set; }
+
+   public void ApplyPagination(int skip, int take)
+        {
+            IsPagingEnabled = true;
+            Skip = skip;
+            Take = take;
+        }
 
         public BaseSpecification()
         {

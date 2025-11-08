@@ -19,27 +19,37 @@ namespace RouteDev.Ecommerc.Services.Services
         private readonly IUnitOfWork _uniteOfWork;
         private readonly IMapper _mapper;
 
-        public ProductService(IUnitOfWork uniteOfWork,IMapper mapper)
+        public ProductService(IUnitOfWork uniteOfWork, IMapper mapper)
         {
             _uniteOfWork = uniteOfWork;
             this._mapper = mapper;
         }
         public async Task<IEnumerable<BrandDto>> GetAlLBrandAsync()
         {
-            var brands = await _uniteOfWork.GetGenericRepoAsync<ProductBrand , int>().GetAllAsync();
+            var brands = await _uniteOfWork.GetGenericRepoAsync<ProductBrand, int>().GetAllAsync();
             var BrnadSDeto = _mapper.Map<IEnumerable<BrandDto>>(brands);
             return BrnadSDeto;
         }
 
-       
+
 
         public async Task<IEnumerable<ProductDto>> GetAlLProductAsync(QueryParmsSpecs parmsSpecs)
         {
             var specs = new ProductSpecification(parmsSpecs);
 
+
+
+
             var products = await _uniteOfWork.GetGenericRepoAsync<Product, int>().GetAllWithSpecsAsync(specs);
             var productDto = _mapper.Map<IEnumerable<ProductDto>>(products);
             return productDto;
+        }
+
+        public async Task<int> CountAsync(QueryParmsSpecs parmsSpecs)
+        {
+            var conutSpecs = new CountProdutcSpecification(parmsSpecs);
+            var counts = await _uniteOfWork.GetGenericRepoAsync<Product, int>().CountAsync(conutSpecs);
+            return counts;
         }
 
         public async Task<IEnumerable<TypeDto>> GetAlLTypeAsync()
@@ -49,7 +59,7 @@ namespace RouteDev.Ecommerc.Services.Services
             return TypesDto;
         }
 
-    
+
         public async Task<ProductDto?> GetProductByIdAsync(int id)
         {
             var specs = new ProductSpecification(id);

@@ -28,6 +28,7 @@ namespace RouteDev.Ecommerc.Domain.Specifications.productSpecification
                 var lowerCaseSearch = parmsSpecs.Search.ToLower();
                 AddSearch(p => p.Name.ToLower().Contains(lowerCaseSearch));
             }
+            ApplyPagination((parmsSpecs.PageIndex - 1) * parmsSpecs.PageSize, parmsSpecs.PageSize);
 
         }
         public ProductSpecification(int id) : base(id)
@@ -36,6 +37,7 @@ namespace RouteDev.Ecommerc.Domain.Specifications.productSpecification
             Includes.Add(p => p.Brand);
         }
 
+        
         public override void AddSort(string sortOption)
         {
             if (string.IsNullOrEmpty(sortOption)) return;

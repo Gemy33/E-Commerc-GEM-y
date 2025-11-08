@@ -2,7 +2,6 @@
 using RouteDev.Ecommerc.Domain.Contracts;
 using RouteDev.Ecommerc.Domain.Entites.Base;
 using RouteDev.Ecommerc.Presistance.Data.Context;
-
 namespace RouteDev.Ecommerc.Presistance.Repository
 {
     internal class GenericRepo<TEntity, Tkey>(AppDbContext _context) : IGenericRepo<TEntity, Tkey>
@@ -11,10 +10,10 @@ namespace RouteDev.Ecommerc.Presistance.Repository
     {
         public async Task<IEnumerable<TEntity>> GetAllAsync(bool WithTracking = false) => WithTracking ? await _context.Set<TEntity>().ToListAsync() : await _context.Set<TEntity>().AsNoTracking().ToListAsync();
 
-        public async Task<IEnumerable<TEntity>> GetAllWithSpecsAsync(IBaseSpecifications<TEntity> specs,bool withTracking = false)
+        public async Task<IEnumerable<TEntity>> GetAllWithSpecsAsync(IBaseSpecifications<TEntity> specs, bool withTracking = false)
         {
             //var query = SpecificationEvaluator<TEntity, Tkey>.GetQuery(_context.Set<TEntity>(), specs);
-           var query =  ApplySpecifications(specs);
+            var query = ApplySpecifications(specs);
             if (withTracking)
             {
                 return await query.ToListAsync();
@@ -24,9 +23,13 @@ namespace RouteDev.Ecommerc.Presistance.Repository
                 return await query.AsNoTracking().ToListAsync();
             }
         }
-    
-        
 
+
+        public Task<int> CountAsync(IBaseSpecifications<TEntity> specs)
+        {
+            var query = ApplySpecifications(specs);
+            return query.CountAsync();
+        }
 
         private IQueryable<TEntity> ApplySpecifications(IBaseSpecifications<TEntity> specs)
         {

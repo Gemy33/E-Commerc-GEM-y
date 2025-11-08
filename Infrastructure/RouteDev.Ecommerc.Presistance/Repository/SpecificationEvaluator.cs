@@ -25,7 +25,10 @@ namespace RouteDev.Ecommerc.Presistance.Repository
             {
                 query = query.Where(spec.filter);
             }
-
+            if(spec.IsPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
             if (spec.Search is not null)
             {
                 query = query.Where(spec.Search);

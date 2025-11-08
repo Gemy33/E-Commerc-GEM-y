@@ -15,6 +15,7 @@ namespace RouteDev.Ecommerc.Service.Apstraction.Services
         Task<IEnumerable<BrandDto>> GetAlLBrandAsync();
 
         Task<IEnumerable<TypeDto>> GetAlLTypeAsync();
+        public  Task<int> CountAsync(QueryParmsSpecs parmsSpecs);
 
 
 

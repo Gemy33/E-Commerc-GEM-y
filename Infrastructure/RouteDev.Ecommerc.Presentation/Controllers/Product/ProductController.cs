@@ -23,9 +23,17 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Product
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]QueryParmsSpecs parmsSpecs)
         {
             var products = await _iserviceManager.ProductService.GetAlLProductAsync(parmsSpecs);
+            var counts = await _iserviceManager.ProductService.CountAsync(parmsSpecs);
+            var resultToReturn = new PaginatedResult<ProductDto>()
+            {
+                PageIndex = parmsSpecs.PageIndex,
+                PageSize = products.Count(),
+                Data = products.ToList(),
+                Count = counts
+            };
             if (products is not null)
             {
-            return Ok(products);
+            return Ok(resultToReturn);
                 
             }
             return  Content("Not product match theis query");
