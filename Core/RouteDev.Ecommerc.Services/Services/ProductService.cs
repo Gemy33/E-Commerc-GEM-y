@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RouteDev.Ecommerc.Domain.Contracts;
 using RouteDev.Ecommerc.Domain.Entites.Products;
+using RouteDev.Ecommerc.Domain.Exceptions.NotFound;
 using RouteDev.Ecommerc.Domain.Specifications;
 using RouteDev.Ecommerc.Domain.Specifications.productSpecification;
 using RouteDev.Ecommerc.Service.Apstraction.Common;
@@ -33,7 +34,7 @@ namespace RouteDev.Ecommerc.Services.Services
 
 
 
-        public async Task<IEnumerable<ProductDto>> GetAlLProductAsync(QueryParmsSpecs parmsSpecs)
+        public async Task<PaginatedResult<ProductDto>> GetAlLProductAsync(QueryParmsSpecs parmsSpecs)
         {
             var specs = new ProductSpecification(parmsSpecs);
 
@@ -42,7 +43,15 @@ namespace RouteDev.Ecommerc.Services.Services
 
             var products = await _uniteOfWork.GetGenericRepoAsync<Product, int>().GetAllWithSpecsAsync(specs);
             var productDto = _mapper.Map<IEnumerable<ProductDto>>(products);
-            return productDto;
+            return new PaginatedResult<ProductDto>()
+            {
+                Data = productDto,
+                PageIndex = parmsSpecs.PageIndex,
+                PageSize = parmsSpecs.PageSize,
+                Count = await CountAsync(parmsSpecs)
+                
+
+            };
         }
 
         public async Task<int> CountAsync(QueryParmsSpecs parmsSpecs)
@@ -64,6 +73,8 @@ namespace RouteDev.Ecommerc.Services.Services
         {
             var specs = new ProductSpecification(id);
             var product = await _uniteOfWork.GetGenericRepoAsync<Product, int>().GetByIdWithSpecsAsync(specs);
+            if (product is null)
+                throw new ProductNotFound(id);
             var productDto = _mapper.Map<ProductDto>(product);
             return productDto;
         }

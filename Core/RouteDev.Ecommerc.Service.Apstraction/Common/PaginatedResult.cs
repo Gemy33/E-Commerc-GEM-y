@@ -11,6 +11,6 @@ namespace RouteDev.Ecommerc.Service.Apstraction.Common
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
         public int Count { get; set; }
-        public ICollection<TEntity> Data { get; set; }
+        public required IEnumerable<TEntity> Data { get; set; }
     }
 }

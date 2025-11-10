@@ -10,7 +10,7 @@ namespace RouteDev.Ecommerc.Service.Apstraction.Services
 {
     public interface IproductService
     {
-        Task<IEnumerable<ProductDto>>GetAlLProductAsync(QueryParmsSpecs parmsSpecs);
+        Task<PaginatedResult<ProductDto>>GetAlLProductAsync(QueryParmsSpecs parmsSpecs);
         Task<ProductDto?> GetProductByIdAsync(int id);
         Task<IEnumerable<BrandDto>> GetAlLBrandAsync();
 
