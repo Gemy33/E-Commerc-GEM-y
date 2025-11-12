@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RouteDev.Ecommerc.Domain.Contracts;
+using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Presistance.Data;
 using RouteDev.Ecommerc.Presistance.Data.Context;
 using RouteDev.Ecommerc.Presistance.UnitOfWork;

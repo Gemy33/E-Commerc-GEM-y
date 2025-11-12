@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RouteDev.Ecommerc.Domain.Contracts;
+using RouteDev.Ecommerc.Domain.Contracts.RedisRepos;
 using RouteDev.Ecommerc.Domain.Entites.Products;
 using RouteDev.Ecommerc.Presentation.Controllers.Base;
 using RouteDev.Ecommerc.Presistance;
 using RouteDev.Ecommerc.Presistance.Data;
 using RouteDev.Ecommerc.Presistance.Data.Context;
 using RouteDev.Ecommerc.Presistance.Extensions;
+using RouteDev.Ecommerc.Presistance.Repository;
 using RouteDev.Ecommerc.Service.Apstraction.Common;
 using RouteDev.Ecommerc.Service.Apstraction.Services;
 using RouteDev.Ecommerc.Services;
 using RouteDev.Ecommerce.Api.CustemMiddleware;
+using StackExchange.Redis;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -52,10 +55,28 @@ namespace RouteDev.Ecommerce.Api
 
                 };
             });
+
+            #region cofigure redis 
+            //builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+            //{
+            //    var configuration = builder.Configuration.GetSection("Redis")["ConnectionStringForRedis"]!;
+            //    return ConnectionMultiplexer.Connect(configuration);
+            //});
+            builder.Services.AddSingleton(typeof(IConnectionMultiplexer), (_) =>
+            {
+                var configuration = builder.Configuration.GetSection("Redis")["ConnectionStringForRedis"]!;
+
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
+            builder.Services.AddScoped(typeof(IBasket), typeof(BasketRepo));
+
+            #endregion
+
             builder.Services.AddPresistanceServices(builder.Configuration);
             builder.Services.AddServiceServices();
             var app = builder.Build();
-             app.UseMiddleware<ExceptionHandlingMiddleware>();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 
             await app.InitializeExtenstionAsync();
@@ -65,7 +86,7 @@ namespace RouteDev.Ecommerce.Api
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
-                
+
             }
             app.UseStaticFiles();
 
@@ -74,7 +95,7 @@ namespace RouteDev.Ecommerce.Api
             app.UseAuthorization();
 
 
-            app.MapControllers(); 
+            app.MapControllers();
             #endregion
 
             app.Run();

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RouteDev.Ecommerc.Domain.Contracts
+namespace RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos
 {
     public interface IGenericRepo<TEntity,Tkey>
         where TEntity : BaseEntity<Tkey>

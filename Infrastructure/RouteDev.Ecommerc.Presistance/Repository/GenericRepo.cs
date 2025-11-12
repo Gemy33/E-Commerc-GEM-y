@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RouteDev.Ecommerc.Domain.Contracts;
+using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Domain.Entites.Base;
 using RouteDev.Ecommerc.Presistance.Data.Context;
 namespace RouteDev.Ecommerc.Presistance.Repository

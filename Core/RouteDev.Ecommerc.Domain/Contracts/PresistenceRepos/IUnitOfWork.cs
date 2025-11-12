@@ -1,6 +1,6 @@
 ﻿using RouteDev.Ecommerc.Domain.Entites.Base;
 
-namespace RouteDev.Ecommerc.Domain.Contracts
+namespace RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using RouteDev.Ecommerc.Domain.Entites.Baskets;
 using RouteDev.Ecommerc.Domain.Entites.Products;
+using RouteDev.Ecommerc.Service.Apstraction.DTO_s.Basket;
 using RouteDev.Ecommerc.Service.Apstraction.DTO_s.Product;
 
 namespace RouteDev.Ecommerc.Services.Mapping
@@ -15,6 +17,9 @@ namespace RouteDev.Ecommerc.Services.Mapping
 
             CreateMap<ProductBrand, BrandDto>();
             CreateMap<ProductType, TypeDto>();
+            CreateMap<Basket, BasketDto>().ReverseMap();
+            CreateMap<BasketItem, BasketItemDto>().ReverseMap();
+
         }
     }
 }

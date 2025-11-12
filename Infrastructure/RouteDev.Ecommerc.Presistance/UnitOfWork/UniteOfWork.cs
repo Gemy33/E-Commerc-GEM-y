@@ -1,4 +1,4 @@
-﻿using RouteDev.Ecommerc.Domain.Contracts;
+﻿using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Domain.Entites.Base;
 using RouteDev.Ecommerc.Presistance.Data.Context;
 using RouteDev.Ecommerc.Presistance.Repository;

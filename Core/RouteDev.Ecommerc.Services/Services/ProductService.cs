@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RouteDev.Ecommerc.Domain.Contracts;
+using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Domain.Entites.Products;
 using RouteDev.Ecommerc.Domain.Exceptions.NotFound;
 using RouteDev.Ecommerc.Domain.Specifications;
