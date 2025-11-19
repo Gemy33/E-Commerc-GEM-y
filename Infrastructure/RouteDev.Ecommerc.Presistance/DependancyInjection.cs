@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Presistance.Data;
-using RouteDev.Ecommerc.Presistance.Data.Context;
+using RouteDev.Ecommerc.Presistance.Identity;
 using RouteDev.Ecommerc.Presistance.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -16,13 +16,15 @@ namespace RouteDev.Ecommerc.Presistance
     public static class DependancyInjection
     {
 
-        public static IServiceCollection AddPresistanceServices(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddPresistanceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(
+            services.AddDbContext<StoreDbContext>(
                 options => options.UseSqlServer(
                    configuration.GetConnectionString("DefaultConnection")
                     )
                 );
+            services.AddScoped<IStorIdentityDbInitalizer, StorIdetityDbIntializer>();
+
             services.AddScoped<Intializer, StoreDbIntilizer>();
             services.AddScoped<IUnitOfWork, UniteOfWork>();
 

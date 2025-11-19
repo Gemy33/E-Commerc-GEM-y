@@ -1,6 +1,6 @@
 ﻿using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Domain.Entites.Base;
-using RouteDev.Ecommerc.Presistance.Data.Context;
+using RouteDev.Ecommerc.Presistance.Data;
 using RouteDev.Ecommerc.Presistance.Repository;
 using System.Collections.Concurrent;
 
@@ -40,10 +40,10 @@ namespace RouteDev.Ecommerc.Presistance.UnitOfWork
     #endregion
     public class UniteOfWork : IUnitOfWork
     {
-        private readonly AppDbContext _context;
+        private readonly StoreDbContext _context;
         /// readonly Dictionary<string, object> Repos;
         readonly ConcurrentDictionary<string, object> _Repo;
-        public UniteOfWork(AppDbContext context)
+        public UniteOfWork(StoreDbContext context)
         {
             _context = context;
             /// Repos = new Dictionary<string, object>();

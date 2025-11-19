@@ -2,10 +2,11 @@
 using RouteDev.Ecommerc.Domain.Contracts;
 using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Domain.Entites.Base;
-using RouteDev.Ecommerc.Presistance.Data.Context;
+using RouteDev.Ecommerc.Presistance.Data;
+
 namespace RouteDev.Ecommerc.Presistance.Repository
 {
-    internal class GenericRepo<TEntity, Tkey>(AppDbContext _context) : IGenericRepo<TEntity, Tkey>
+    internal class GenericRepo<TEntity, Tkey>(StoreDbContext _context) : IGenericRepo<TEntity, Tkey>
         where TEntity : BaseEntity<Tkey>
         where Tkey : IEquatable<Tkey>
     {

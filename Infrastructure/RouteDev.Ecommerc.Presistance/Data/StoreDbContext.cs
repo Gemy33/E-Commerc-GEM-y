@@ -6,20 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RouteDev.Ecommerc.Presistance.Data.Context
+namespace RouteDev.Ecommerc.Presistance.Data
 {
-    public class AppDbContext:DbContext
+    public class StoreDbContext:DbContext
     {
         public DbSet<Product> products { get; set; }
         public DbSet<ProductBrand> productBrands { get; set; }
         public DbSet<ProductType> productTypes { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreDbContext).Assembly);
         }
     }
 }

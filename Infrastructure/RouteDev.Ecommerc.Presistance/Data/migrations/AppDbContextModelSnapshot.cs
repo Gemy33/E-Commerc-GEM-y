@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RouteDev.Ecommerc.Presistance.Data.Context;
 
 #nullable disable
 
 namespace RouteDev.Ecommerc.Presistance.Data.migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(StoreDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

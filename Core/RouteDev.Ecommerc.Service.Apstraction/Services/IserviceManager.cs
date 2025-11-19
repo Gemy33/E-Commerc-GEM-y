@@ -9,6 +9,7 @@ namespace RouteDev.Ecommerc.Service.Apstraction.Services
     public interface IserviceManager
     {
         IproductService ProductService { get; }
+        IAuthService AuthService { get; }
         IBasketService BasketService { get; }
     }
 }

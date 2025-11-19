@@ -1,11 +1,5 @@
 ﻿using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
-using RouteDev.Ecommerc.Presistance.Data.Context;
 using RouteDev.Ecommerce.Api;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Presistance.Extensions
 {
@@ -17,12 +11,15 @@ namespace RouteDev.Ecommerc.Presistance.Extensions
             var service = scope.ServiceProvider;
             var logger = service.GetRequiredService<ILogger<Program>>();
             var intializer = service.GetRequiredService<Intializer>();
+            var context = service.GetRequiredService<IStorIdentityDbInitalizer>();
 
             try
             {
 
                 await intializer.InitializeAsync();
                 await intializer.SeedDataAsync();
+                await context.InitializeAsync();
+                await context.SeedDataAsync();
 
 
             }

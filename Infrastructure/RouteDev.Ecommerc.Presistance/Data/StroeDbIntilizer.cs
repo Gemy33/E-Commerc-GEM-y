@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
 using RouteDev.Ecommerc.Domain.Entites.Products;
-using RouteDev.Ecommerc.Presistance.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Presistance.Data
 {
-    public  class StoreDbIntilizer(AppDbContext context) : Intializer
+    public  class StoreDbIntilizer(StoreDbContext context) : Intializer
     {
         public  async Task InitializeAsync()
         {
@@ -56,6 +55,7 @@ namespace RouteDev.Ecommerc.Presistance.Data
                     await context.SaveChangesAsync();
                 }
             }
+
         }
     }
 }

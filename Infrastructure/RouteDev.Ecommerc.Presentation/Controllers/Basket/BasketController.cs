@@ -2,11 +2,6 @@
 using RouteDev.Ecommerc.Presentation.Controllers.Base;
 using RouteDev.Ecommerc.Service.Apstraction.DTO_s.Basket;
 using RouteDev.Ecommerc.Service.Apstraction.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Presentation.Controllers.Basket
 {

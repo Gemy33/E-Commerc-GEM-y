@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RouteDev.Ecommerc.Presistance.Data.Context;
 
 #nullable disable
 
 namespace RouteDev.Ecommerc.Presistance.Data.migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(StoreDbContext))]
     [Migration("20251030080043_productModuel")]
     partial class productModuel
     {
