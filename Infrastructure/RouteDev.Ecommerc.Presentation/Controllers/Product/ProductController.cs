@@ -21,7 +21,7 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Product
             this._iserviceManager = iserviceManager;
         }
         [HttpGet]
-        [Authorize]
+       
         public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProducts([FromQuery]QueryParmsSpecs parmsSpecs)
         {
             var products = await _iserviceManager.ProductService.GetAlLProductAsync(parmsSpecs);
