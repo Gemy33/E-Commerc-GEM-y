@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Domain.Specifications
 {
-    public class CountProdutcSpecification : BaseSpecification<Product>
+    public class CountProdutcSpecification : BaseSpecification<Product,int>
     {
         public CountProdutcSpecification(QueryParmsSpecs parmsSpecs)
         {

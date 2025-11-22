@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using RouteDev.Ecommerc.Domain.Entites.IDentity;
 using RouteDev.Ecommerc.Domain.Exceptions.NotFound;
+using RouteDev.Ecommerc.Domain.Exceptions.UnAuthariz;
 using RouteDev.Ecommerc.Service.Apstraction.DTO_s.Auth;
 using RouteDev.Ecommerc.Service.Apstraction.Services;
 using System.IdentityModel.Tokens.Jwt;
@@ -36,7 +37,7 @@ namespace RouteDev.Ecommerc.Services.Services
         {
     
             var user =await _userManager.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Email == email);
-            if (user is null) throw new NotFoundException("User not found");
+            if (user is null) throw new UserNotFoundException(email);
             if (user.Address is null)
             {
                 user.Address = new Address()
@@ -66,8 +67,8 @@ namespace RouteDev.Ecommerc.Services.Services
         }
         public async Task<AddressDto> GetAddressAsync(string email)
         {
-            var user = await _userManager.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Email == email) ?? throw new NotFoundException("No Exist User");
-            if (user.Address is null) throw new NotFoundException($"the user {user.DisplayName} not has address");
+            var user = await _userManager.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Email == email) ?? throw new UserNotFoundException(email);
+            if (user.Address is null) throw new AddressNotFoundException();
             return new AddressDto()
             {
                 FirstName = user.Address.FirstName,
@@ -162,7 +163,7 @@ namespace RouteDev.Ecommerc.Services.Services
             catch (Exception ex)
             {
                 _logger.LogError("when Generate the token");
-                throw new Exception(ex.Message);
+                throw new TokenGenerationException();
 
                 
             }

@@ -8,6 +8,6 @@ namespace RouteDev.Ecommerc.Domain.Entites.Base
 {
     public class BaseEntity<Tkey> where Tkey : IEquatable<Tkey>
     {
-        public required Tkey Id { get; set; }
+        public  Tkey Id { get; set; }
     }
 }

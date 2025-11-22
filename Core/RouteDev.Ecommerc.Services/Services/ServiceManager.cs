@@ -19,6 +19,8 @@ namespace RouteDev.Ecommerc.Services.Services
         readonly Lazy<IproductService> _productService;
         readonly Lazy<IBasketService> _basketService;
         readonly Lazy<IAuthService> _authService;
+        readonly Lazy<IOrderService> _orderService;
+
 
 
         public ServiceManager(IUnitOfWork unitOfWork , IMapper mapper , IBasket basket,UserManager<ApplicationUser> userManager, IConfiguration _configuration, 
@@ -27,11 +29,15 @@ namespace RouteDev.Ecommerc.Services.Services
             _productService = new Lazy<IproductService>(() => new ProductService(unitOfWork,mapper));
             _basketService = new Lazy<IBasketService>(() => new BasketService(basket, mapper));
             _authService = new Lazy<IAuthService>(() => new AuthService(_configuration, userManager, signInManager, logger));
+            _orderService = new Lazy<IOrderService>(() => new OrderService(unitOfWork, basket, mapper));
+
         }
         public IproductService ProductService => _productService.Value;
 
         public IBasketService BasketService => _basketService.Value;
 
         public IAuthService AuthService => _authService.Value;
+
+        public IOrderService OrderService => _orderService.Value;
     }
 }

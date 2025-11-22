@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Domain.Exceptions.NotFound
 {
-    public class NotFoundException(string? message): Exception(message)
+    public class ProductNotFound: ProductException
     {
-        
+        public ProductNotFound(int id):base($"Product with id :{id} Not Found",404)
+        {
+            
+        }
     }
+
 }

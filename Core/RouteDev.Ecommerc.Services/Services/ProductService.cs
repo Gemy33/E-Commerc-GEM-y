@@ -37,6 +37,7 @@ namespace RouteDev.Ecommerc.Services.Services
         public async Task<PaginatedResult<ProductDto>> GetAlLProductAsync(QueryParmsSpecs parmsSpecs)
         {
             var specs = new ProductSpecification(parmsSpecs);
+            
 
 
 
@@ -56,6 +57,7 @@ namespace RouteDev.Ecommerc.Services.Services
 
         public async Task<int> CountAsync(QueryParmsSpecs parmsSpecs)
         {
+
             var conutSpecs = new CountProdutcSpecification(parmsSpecs);
             var counts = await _uniteOfWork.GetGenericRepoAsync<Product, int>().CountAsync(conutSpecs);
             return counts;

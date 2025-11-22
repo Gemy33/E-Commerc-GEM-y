@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Domain.Specifications
 {
-    public class BaseSpecification<TEntity> : IBaseSpecifications<TEntity>
-        where TEntity : BaseEntity<int>
+    public abstract class BaseSpecification<TEntity , Tkey> : IBaseSpecifications<TEntity>
+        where TEntity : BaseEntity<Tkey>
+        where Tkey : IEquatable<Tkey>
     {
         public Expression<Func<TEntity, bool>> filter { get; set; } = null;
         public List<Expression<Func<TEntity, object>>> Includes { get ; set ; } = new List<Expression<Func<TEntity, object>>>();

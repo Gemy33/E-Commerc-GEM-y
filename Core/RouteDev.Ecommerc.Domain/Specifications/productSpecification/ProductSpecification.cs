@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Domain.Specifications.productSpecification
 {
-    public class ProductSpecification : BaseSpecification<Product>
+    public class ProductSpecification : BaseSpecification<Product,int>
     {
         public ProductSpecification(QueryParmsSpecs parmsSpecs) : base()
         {

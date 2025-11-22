@@ -11,5 +11,7 @@ namespace RouteDev.Ecommerc.Service.Apstraction.Services
         IproductService ProductService { get; }
         IAuthService AuthService { get; }
         IBasketService BasketService { get; }
+        IOrderService OrderService { get; }
+
     }
 }

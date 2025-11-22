@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RouteDev.Ecommerc.Domain.Contracts.RedisRepos;
 using RouteDev.Ecommerc.Domain.Entites.Baskets;
+using RouteDev.Ecommerc.Domain.Exceptions.Basket;
 using RouteDev.Ecommerc.Domain.Exceptions.NotFound;
 using RouteDev.Ecommerc.Service.Apstraction.DTO_s.Basket;
 using RouteDev.Ecommerc.Service.Apstraction.Services;
@@ -42,11 +43,11 @@ namespace RouteDev.Ecommerc.Services.Services
 
 
                 }
-                else throw new NotFoundException("the item not exist in this card");
+                else throw new BasketEmptyException();
 
             }
             else
-                throw new NotFoundException("theis card not exist");
+                throw new BasketNotFoundException();
 
 
 
@@ -56,7 +57,7 @@ namespace RouteDev.Ecommerc.Services.Services
         {
             var deletedBasket = await _basket.GetBasketAsync(basketId);
             if (deletedBasket is null)
-                throw new NotFoundException("this basket not Exist");
+                throw new BasketNotFoundException();
             var mappedBasket = _mapper.Map<BasketDto>(deletedBasket);
             return mappedBasket;
         }

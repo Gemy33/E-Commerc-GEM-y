@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
+using RouteDev.Ecommerc.Domain.Entites.Orders;
 using RouteDev.Ecommerc.Domain.Entites.Products;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,17 @@ namespace RouteDev.Ecommerc.Presistance.Data
                     await context.products.AddRangeAsync(deserializedBrands);
                     await context.SaveChangesAsync();
                 }
+            }
+            if (!context.Set<DeliveryMethod>().Any())
+            {
+                var methods = await File.ReadAllTextAsync("../infrastructure/RouteDev.Ecommerc.Presistance/Data/DataSeeds/Delivery.json");
+                var deserializedmethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(methods);
+                if (deserializedmethods?.Count > 0)
+                {
+                    await context.Set<DeliveryMethod>().AddRangeAsync(deserializedmethods);
+                    await context.SaveChangesAsync();
+                }
+
             }
 
         }

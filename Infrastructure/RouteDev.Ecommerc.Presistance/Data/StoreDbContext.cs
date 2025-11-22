@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RouteDev.Ecommerc.Domain.Entites.Products;
+using RouteDev.Ecommerc.Presistance.Data.Configuration.Order;
+using RouteDev.Ecommerc.Presistance.Data.Configuration.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,14 @@ namespace RouteDev.Ecommerc.Presistance.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreDbContext).Assembly);
+            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreDbContext).Assembly);
+            modelBuilder.ApplyConfiguration(new ProductConfig() );
+            modelBuilder.ApplyConfiguration(new OrderConfig());
+            modelBuilder.ApplyConfiguration(new DeliveryMethodConfig());
+
+            modelBuilder.ApplyConfiguration(new OrderItemConfig());
+
+
         }
     }
 }

@@ -11,6 +11,7 @@ namespace RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos
         where TEntity : BaseEntity<Tkey>
         where Tkey : IEquatable<Tkey>
     {
+        public  Task<TEntity?> GetByIdAsyncWithSpecs(Tkey id, IBaseSpecifications<TEntity> specs);
         public Task<int> CountAsync(IBaseSpecifications<TEntity> specs);
         Task<IEnumerable<TEntity>> GetAllAsync(bool WithTracking = false);
         public  Task<IEnumerable<TEntity>> GetAllWithSpecsAsync(IBaseSpecifications<TEntity> specs, bool withTracking = false);

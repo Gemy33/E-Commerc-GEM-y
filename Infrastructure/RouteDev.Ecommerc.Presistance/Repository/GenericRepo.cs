@@ -39,6 +39,16 @@ namespace RouteDev.Ecommerc.Presistance.Repository
         }
         public Task<TEntity?> GetByIdAsync(Tkey id) => _context.Set<TEntity>().FindAsync(id).AsTask();
 
+        public async Task<TEntity?> GetByIdAsyncWithSpecs(Tkey id, IBaseSpecifications<TEntity> specs)
+        {
+            var query = ApplySpecifications(specs);
+           
+           
+                return   query.FirstOrDefault();
+
+        }
+        //=> _context.Set<TEntity>().FindAsync(id).AsTask();
+
         public void Add(TEntity entity) => _context.Set<TEntity>().Add(entity);
 
 
