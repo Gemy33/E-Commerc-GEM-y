@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Domain.Exceptions.Basket
 {
-    public class BasketEmptyException:BasketException
+    public class BasketUpdateException:BasketException
     {
-        public BasketEmptyException(int id):base($"the Basket not contain product wiht id :{id}",400)
+        public BasketUpdateException():base("Failed to update the basket", 500)
         {
             
         }

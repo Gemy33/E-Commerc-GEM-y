@@ -26,7 +26,7 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Order
 
         }
         [HttpGet("DeliveryMethods")]
-        [Authorize]
+        [AllowAnonymous]
 
         public async Task<ActionResult> GetAllDeliveryMethods()
         {

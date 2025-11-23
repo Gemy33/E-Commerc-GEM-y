@@ -58,8 +58,9 @@ namespace RouteDev.Ecommerc.Presistance.UnitOfWork
             where TEntity : BaseEntity<Tkey>
             where Tkey : IEquatable<Tkey>
         {
-            var RepoName = typeof(IGenericRepo<TEntity, Tkey>).FullName;
-            var repo = _Repo.GetOrAdd(RepoName, new GenericRepo<TEntity, Tkey>(_context));
+            //var RepoName = typeof(IGenericRepo<TEntity, Tkey>).FullName;
+            var name= typeof(TEntity).Name;
+            var repo = _Repo.GetOrAdd(name, new GenericRepo<TEntity, Tkey>(_context));
             return (IGenericRepo<TEntity, Tkey>)repo;
 
 

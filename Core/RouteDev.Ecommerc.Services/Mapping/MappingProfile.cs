@@ -22,6 +22,8 @@ namespace RouteDev.Ecommerc.Services.Mapping
             CreateMap<ProductType, TypeDto>();
             CreateMap<Basket, BasketDto>().ReverseMap();
             CreateMap<BasketItem, BasketItemDto>().ReverseMap();
+            CreateMap<Basket, UpdataBaskeRequestDto>()
+                .ForMember(D=>D.BasketId,opt => opt.MapFrom(s => s.Id));
             CreateMap<OrderItem, OrderItemDto>()
                 .ForMember(D => D.ProductId , opt => opt.MapFrom(S => S.Product.ProductId))
                 .ForMember(D => D.PictureUrl, opt => opt.MapFrom(S => S.Product.PictureUrl))

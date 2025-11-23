@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RouteDev.Ecommerc.Presentation.Controllers.Base;
 using RouteDev.Ecommerc.Service.Apstraction.DTO_s.Basket;
 using RouteDev.Ecommerc.Service.Apstraction.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace RouteDev.Ecommerc.Presentation.Controllers.Basket
 {
+    [Authorize]
     public class BasketController : BaseController
     {
         private readonly IserviceManager _iserviceManager;
@@ -12,38 +16,64 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Basket
         {
             this._iserviceManager = iserviceManager;
         }
-        [HttpPost("{id}")]
-        public async Task<IActionResult>AddItemToBasketAsync(string id , BasketItemDto itemDto)
+        [HttpPost("{basketId}")]
+        private string GetUserId()
         {
-            var basket = await _iserviceManager.BasketService.AddItemToBasketAsync(id, itemDto);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId;
+        }
+
+        [HttpPost("{basketId}/items")]
+
+        public async Task<IActionResult> AddItemToBasketAsync(string basketId, [FromBody] BasketItemDto itemDto)
+        {
+            var userId = GetUserId();
+            var basket = await _iserviceManager.BasketService.AddItemToBasketAsync(userId, basketId, itemDto);
             return Ok(basket);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> RemoveItemFromBasketAsync(string id, int productId)
+        [HttpDelete("{basketId}/{productId}")]
+        public async Task<IActionResult> RemoveItemFromBasketAsync(string basketId, int productId)
         {
-            var basket = await _iserviceManager.BasketService.RemoveItemFromBasketAsync(id, productId);
+            var userId = GetUserId();
+            var basket = await _iserviceManager.BasketService.RemoveItemFromBasketAsync(userId, basketId, productId);
             return Ok(basket);
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateUpdateBasket(BasketDto? basketDto)
+
+        [HttpPost("{basketID}")]
+        public async Task<IActionResult> CreateUpdateBasket([FromBody] UpdataBaskeRequestDto? requestDto, string basketID)
         {
-            var basket =await _iserviceManager.BasketService.UpdateBasketAsync(basketDto);
+            var userId = GetUserId();
+            if (basketID != requestDto.BasketId)
+                return BadRequest("Basket ID mismatch");
+
+            //requestDto.UserId = userId;
+            var basket = await _iserviceManager.BasketService.UpdateBasketAsync(userId, requestDto);
             return Ok(basket);
         }
-        [HttpGet]
-        [Route("{basketId}")]
-        public async Task<IActionResult> GetBasketById(string basketId)
+
+        [HttpGet("{basketId}")]
+        public async Task<IActionResult> GetBasket(string basketId)
         {
-            var basket = await _iserviceManager.BasketService.GetBasketAsync(basketId);
+            var userId = GetUserId();
+            var basket = await _iserviceManager.BasketService.GetBasketAsync(userId,basketId);
             return Ok(basket);
         }
-        [HttpDelete]
-        [Route("{basketId}")]
-        public async Task<IActionResult> DeleteBasketById(string basketId)
+
+        [HttpDelete("{basketId}")]
+        public async Task<IActionResult> DeleteBasket(string basketId)
         {
-            var result = await _iserviceManager.BasketService.DeleteBasketAsync(basketId);
+            var userId = GetUserId();
+            var result = await _iserviceManager.BasketService.DeleteBasketAsync(userId,basketId);
             return Ok(result);
+        }
+
+        [HttpPost("{basketId}/{productId}/{Quntity}")]
+        public async Task<ActionResult> UpdataQuentity(string basketId ,int productId, int Quntity)
+        {
+            var userID = GetUserId();
+            var updataedBasket = await _iserviceManager.BasketService.UpdateItemQuantityAsync(basketId,userID,productId, Quntity);
+            return Ok(updataedBasket);
         }
     }
 }

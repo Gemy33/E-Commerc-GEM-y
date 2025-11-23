@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Domain.Exceptions.Basket
 {
-    public class BasketEmptyException:BasketException
+    public class BasketLimitExceededException:BasketException
     {
-        public BasketEmptyException(int id):base($"the Basket not contain product wiht id :{id}",400)
+        public BasketLimitExceededException(string id):base($"Basket with id:{id} has exceeded the item limit", 400)
         {
             
         }
     }
+
 }

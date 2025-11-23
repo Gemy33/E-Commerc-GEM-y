@@ -1,12 +1,7 @@
 ﻿using RouteDev.Ecommerc.Domain.Contracts.RedisRepos;
 using RouteDev.Ecommerc.Domain.Entites.Baskets;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Presistance.Repository
 {
@@ -17,6 +12,7 @@ namespace RouteDev.Ecommerc.Presistance.Repository
         {
             _database = multiplexer.GetDatabase();
         }
+
         public async Task<bool> DeleteBasketAsync(string basketId)
         {
             return await _database.KeyDeleteAsync(basketId);

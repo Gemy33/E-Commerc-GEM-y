@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Domain.Exceptions.Basket
 {
-    public class BasketEmptyException:BasketException
+    public class UnauthorizedBasketAccessException:BasketException
     {
-        public BasketEmptyException(int id):base($"the Basket not contain product wiht id :{id}",400)
+        public UnauthorizedBasketAccessException():base("You don't have permission to access this basket",401)
         {
             
         }
