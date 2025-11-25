@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RouteDev.Ecommerc.Domain.Contracts.PresistenceRepos;
+using RouteDev.Ecommerc.Domain.Contracts.RedisRepos;
 using RouteDev.Ecommerc.Presistance.Data;
 using RouteDev.Ecommerc.Presistance.Identity;
+using RouteDev.Ecommerc.Presistance.Repository;
 using RouteDev.Ecommerc.Presistance.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -27,6 +29,7 @@ namespace RouteDev.Ecommerc.Presistance
 
             services.AddScoped<Intializer, StoreDbIntilizer>();
             services.AddScoped<IUnitOfWork, UniteOfWork>();
+            services.AddScoped<ICachRepo, CachRepo>();
 
             return services;
         }

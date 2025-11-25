@@ -12,6 +12,7 @@ namespace RouteDev.Ecommerc.Service.Apstraction.Services
         IAuthService AuthService { get; }
         IBasketService BasketService { get; }
         IOrderService OrderService { get; }
+        //ICachService CachService { get; }
 
     }
 }

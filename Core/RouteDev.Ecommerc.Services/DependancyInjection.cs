@@ -19,6 +19,7 @@ namespace RouteDev.Ecommerc.Services
             services.AddAutoMapper( p => p.AddProfile(typeof(MappingProfile)));
             services.AddScoped<IserviceManager,ServiceManager>();
             services.AddTransient<ProductUrlResolver>();
+            services.AddScoped<ICachService, CachService>();
             return services;
         }
     }

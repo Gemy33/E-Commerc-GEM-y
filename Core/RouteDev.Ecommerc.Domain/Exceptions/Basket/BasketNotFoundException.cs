@@ -8,7 +8,7 @@ namespace RouteDev.Ecommerc.Domain.Exceptions.Basket
 {
     public class BasketNotFoundException:BasketException
     {
-        public BasketNotFoundException():base("This Basket Not Found",404)
+        public BasketNotFoundException(string id ):base($"the Basket with id :{id} Not Found",404)
         {
             
         }

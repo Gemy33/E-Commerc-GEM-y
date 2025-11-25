@@ -139,6 +139,7 @@ namespace RouteDev.Ecommerce.Api
             app.UseStaticFiles();
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

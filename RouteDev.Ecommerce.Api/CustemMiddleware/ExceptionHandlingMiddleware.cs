@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using RouteDev.Ecommerc.Domain.Exceptions.Basket;
 using RouteDev.Ecommerc.Domain.Exceptions.NotFound;
+using RouteDev.Ecommerc.Domain.Exceptions.Order;
 using RouteDev.Ecommerc.Domain.Exceptions.UnAuthariz;
 using RouteDev.Ecommerc.Service.Apstraction.Common;
 using System.Text.Json;
@@ -47,6 +48,7 @@ namespace RouteDev.Ecommerce.Api.CustemMiddleware
             int status = ex switch
             {
                 AuthException auth => auth.statusCode,
+                OrderException order => order.Code,
                 ProductException product => product.StatusCode,
                 BasketException basket => basket.StutasCode,
                 _ => 500
@@ -54,7 +56,11 @@ namespace RouteDev.Ecommerce.Api.CustemMiddleware
             };
             response.StatusCode = status;
             response.Error = ex.Message;
-        
+            if (status == 500 && ex.InnerException != null)
+            {
+                response.Details = ex.InnerException.Message;
+            }
+
 
             context.Response.StatusCode = status;
 

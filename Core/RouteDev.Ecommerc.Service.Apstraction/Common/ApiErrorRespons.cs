@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace RouteDev.Ecommerc.Service.Apstraction.Common
 {
-    public class ApiErrorRespons
+    public class ApiErrorRespons: ApiErrorResponsWithDetails
     {
         public int StatusCode { get; set; }
         public string Error { get; set; }
-        public string? Details { get; set; }
         //public ApiErrorRespons(int stats, string? massage)
         //{
         //    Stats = stats;
@@ -42,6 +41,11 @@ namespace RouteDev.Ecommerc.Service.Apstraction.Common
         //{
         //    return JsonSerializer.Serialize(this);
         //}
+    }
+
+    public class ApiErrorResponsWithDetails 
+    {
+        public string Details { get; set; }
     }
 
 }

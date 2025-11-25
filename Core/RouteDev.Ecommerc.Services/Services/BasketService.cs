@@ -61,7 +61,7 @@ namespace RouteDev.Ecommerc.Services.Services
 
             }
             else
-                throw new BasketNotFoundException();
+                throw new BasketNotFoundException(basketId);
 
 
 
@@ -75,7 +75,7 @@ namespace RouteDev.Ecommerc.Services.Services
             var ExistingBasket = await _basket.GetBasketAsync(basketId);
 
             if (ExistingBasket is null)
-                throw new BasketNotFoundException();
+                throw new BasketNotFoundException(basketId);
 
             if (ExistingBasket is not null && userId != ExistingBasket.UserId)
                 throw new UnauthorizedBasketAccessException();
@@ -198,7 +198,7 @@ namespace RouteDev.Ecommerc.Services.Services
             }
             else
             {
-                throw new BasketNotFoundException();
+                throw new BasketNotFoundException(basketId);
             }
         }
 

@@ -43,8 +43,8 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Auth
             return Ok(user);
         }
 
-        [HttpGet("CheckEmail")]
-        public async Task<ActionResult<bool>> CheckEmail(string email)
+        [HttpGet("Email-Exist")]
+        public async Task<ActionResult<bool>> CheckEmail([FromQuery] string email)
         {
             var isExist = await _serviceManager.AuthService.IsEmailExistAsync(email);
             return Ok(isExist);
@@ -52,7 +52,7 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Auth
 
         //--Authunteicated end poing
 
-        [HttpGet("GetUser")]
+        [HttpGet("Me")]
         [Authorize]
         public async Task<ActionResult<UserDto>> GetUser()
         {
@@ -65,7 +65,7 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Auth
                 return NotFound("user not found");
             return Ok(UserisExist);
         }
-        [HttpGet("GetUserAddress")]
+        [HttpGet("Address")]
         [Authorize]
         public async Task<ActionResult<bool>> GetAddress()
         {
@@ -78,7 +78,7 @@ namespace RouteDev.Ecommerc.Presentation.Controllers.Auth
             return Ok(AddressExist);
         }
 
-        [HttpPut]
+        [HttpPut("Address")]
         [Authorize]
         public async Task<ActionResult<bool>> UpdataAddress(AddressDto dto)
         {

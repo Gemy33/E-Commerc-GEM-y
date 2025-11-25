@@ -101,15 +101,15 @@ namespace RouteDev.Ecommerc.Services.Services
         public async Task<UserDto> LoginAsync(LoginDto loginDto)
         {
             var ExistUser = await _userManager.FindByEmailAsync(loginDto.Email);
-            if (ExistUser is null) throw new Exception("Invalide Email or Password");
+            if (ExistUser is null) throw new InvalidCredentialsException();
             var result = await _signInManager.CheckPasswordSignInAsync(ExistUser, loginDto.Password, lockoutOnFailure: true);
             if (result.IsNotAllowed) throw new Exception("User is not allowed to sign in");
-            if (result.IsLockedOut) throw new Exception("User is locked out");
-            if (!result.Succeeded) throw new Exception("Invalide Email or Password");
+            if (result.IsLockedOut) throw new UserLockedOutException();
+            if (!result.Succeeded) throw new InvalidCredentialsException();
             return new UserDto()
             {
                 DisplayName = ExistUser.DisplayName,
-                Email = ExistUser.Email,
+                Email = ExistUser.Email!,
                 ID = ExistUser.Id,
                 Token = CreateToken(ExistUser)
 
@@ -168,5 +168,7 @@ namespace RouteDev.Ecommerc.Services.Services
                 
             }
         }
+
+        
     }
 }
