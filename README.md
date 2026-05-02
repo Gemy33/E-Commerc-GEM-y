@@ -1,92 +1,116 @@
-# 🛒 E-Commerce API (E-Commerc-GEM-y)
+# 🛒 E-Commerce Backend API (E-Commerc-GEM-y)
 
-This is a RESTful **E-Commerce API** built with ASP.NET Core following **Onion Architecture**, designed to handle product management, user authentication, basket management, and order processing. The architecture uses **Unit of Work**, **Generic Repository** patterns, and is structured to support clean separation of concerns.
+A scalable and clean **ASP.NET Core Web API** for an e-commerce system built using modern backend practices such as **Clean Architecture (Onion Architecture)**, **Design Patterns**, and **Performance Optimization techniques**.
 
 ---
 
-## 🧠 Project Overview
+## 🚀 Project Overview
 
-This project provides backend functionality for an e-commerce system with the following responsibilities:
+This project provides a complete backend solution for an e-commerce platform with the following core features:
 
-✅ Authentication & Authorization  
-✅ Product Management  
-✅ Basket (Shopping Cart)  
-✅ Order Management  
-✅ Onion Architecture with layered separation  
-✅ Unit of Work and Generic Repository Patterns
+- 🔐 Authentication & Authorization (JWT / Identity)
+- 📦 Product Management
+- 🧺 Shopping Basket (Cart)
+- 🧾 Order Management
+- ⚡ Performance Optimization (Caching with Redis)
+- 🧠 Clean Architecture with separation of concerns
 
 ---
 
 ## 🏛 Architecture
 
-The project is structured according to **Onion Architecture** (similar to Clean Architecture), which helps make the code more **maintainable**, **testable**, and **scalable**. The goal is to reduce direct dependency on infrastructure and push domain logic to the center. :contentReference[oaicite:0]{index=0}
+The system is built using **Onion Architecture**, ensuring:
+
+- Separation of concerns
+- High testability
+- Scalability and maintainability
+- Independence of business logic from infrastructure
+
+### 📁 Project Structure
 E-Commerc-GEM-y/
-├── Core/ → Domain Entities & Interfaces
-├── Infrastructure/ → Data persistence & repository implementations
-├── RouteDev.Ecommerce.Api/ → API project (Controllers / Startup)
-├── RouteDev.Talabat.sln → Solution file
-└── README.md → Project documentation
+├── Core/ # Domain Entities & Interfaces
+├── Infrastructure/ # Data Access & Repository Implementations
+├── RouteDev.Ecommerce.Api/ # API Layer (Controllers)
+├── RouteDev.Talabat.sln # Solution File
+└── README.md # Documentation
+
 
 ---
 
-## 🔐 Authentication (Auth)
+## 🔐 Authentication & Authorization
 
-- User registration and login endpoints
-- Token-based authentication (likely JWT or Identity based)
-- Secure password management
-- Role-based access support (Admin / User)
+- User Registration & Login
+- JWT Token-based Authentication
+- Role-based Access Control (Admin / User)
+- Secure password handling
 
-> Authentication ensures that only registered and logged-in users can access protected API resources.
-
----
-
-## 🛍️ Business Modules
-
-### 📦 Product Module
-- Create, Read, Update, Delete products
-- Product details and listing endpoints
-- Structured with domain entities and API controllers
+> Ensures only authenticated users can access protected resources.
 
 ---
 
-### 🧺 Basket (Shopping Cart)
-- Add items to basket
-- Update basket items
+## 📦 Main Modules
+
+### 🛍️ Product Module
+- CRUD operations for products
+- Product filtering by brand and type
+- Clean API endpoints for product listing and details
+
+---
+
+### 🧺 Basket Module (Shopping Cart)
+- Add products to basket
+- Update item quantities
 - Remove items
-- Retrieve current basket contents
+- Retrieve current basket
 
 ---
 
 ### 🧾 Order Module
-- Place orders based on current basket
-- Track orders by user
-- Order history and status management
+- Create orders from basket
+- Track order status
+- Retrieve user order history
 
 ---
 
-## 🧱 Design Patterns
+## ⚙️ Performance & Optimization
 
-### 📌 Generic Repository
-The project uses a **Generic Repository Pattern** to provide reusable CRUD operations for all entity types — this reduces repetitive code and centralizes data access logic. :contentReference[oaicite:1]{index=1}
+### ⚡ Redis Caching
+- Distributed caching using Redis
+- Reduces database load
+- Improves API response time
+
+### 🧠 Custom Caching Attribute
+- Automatic caching of API responses
+- Cache key based on request path + query parameters
+- Configurable TTL (default: 1200 seconds)
 
 ---
 
-### 🏁 Unit of Work
-The **Unit of Work** pattern ensures that multiple repository operations are executed within a single transaction — which helps manage consistency across multiple business actions. :contentReference[oaicite:2]{index=2}
+## 🧱 Design Patterns Used
+
+### 📌 Repository Pattern
+Provides a clean abstraction layer for data access and reusable CRUD operations.
+
+### 📌 Unit of Work Pattern
+Ensures transactional consistency across multiple repository operations.
+
+### 📌 Specification Pattern
+Used for building flexible and reusable query logic (especially for filtering products).
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| ASP.NET Core | Backend Web API framework |
-| C# | Core programming language |
-| Entity Framework Core | ORM for DB operations |
-| Onion Architecture | Layered architecture |
-| JWT or ASP.NET Identity | Authentication |
-| Generic Repository | Reusable data access |
-| Unit of Work | Transaction management |
+| Technology            | Purpose                          |
+|----------------------|----------------------------------|
+| ASP.NET Core Web API | Backend Framework                |
+| C#                   | Programming Language            |
+| Entity Framework Core| ORM for Database                |
+| SQL Server           | Database                        |
+| Redis                | Distributed Caching             |
+| JWT / Identity       | Authentication                  |
+| Onion Architecture   | System Design                   |
+| Design Patterns      | Code Reusability & Maintainability |
 
 ---
 
@@ -94,20 +118,50 @@ The **Unit of Work** pattern ensures that multiple repository operations are exe
 
 ### 📌 Prerequisites
 
-Make sure you have:
+Make sure you have installed:
 
-- .NET SDK installed
-- SQL Server / Database
-- IDE like Visual Studio or VS Code
+- .NET SDK
+- SQL Server
+- Redis Server (optional but recommended)
+- Visual Studio / VS Code
 
-### 📥 Setup & Run
+---
 
-1. Clone the repository:
-   git clone https://github.com/Gemy33/E-Commerc-GEM-y.git
-2. Open the solution in Visual Studio.
+### 📥 Installation Steps
 
-3. Configure your database connection in appsettings.json.
+```bash
+# Clone repository
+git clone https://github.com/Gemy33/E-Commerc-GEM-y.git
 
-4. Restore packages and build the solution.
+# Open solution in Visual Studio
 
-5. Run the API (F5 or dotnet run).
+# Restore dependencies
+dotnet restore
+
+# Run migrations (if applicable)
+dotnet ef database update
+
+# Run the project
+dotnet run
+---
+### Example API Request
+GET /api/products?brandId=2&typeId=2
+🧠 Key Highlights
+Clean & scalable architecture
+High performance with Redis caching
+Real-world backend patterns
+Maintainable and testable code structure
+Production-ready design approach
+📈 Future Improvements
+Payment gateway integration
+Advanced filtering & sorting
+Pagination improvements
+Logging & monitoring system
+Unit & Integration testing coverage
+👨‍💻 Author
+
+Developed as a backend learning & production-level practice project using ASP.NET Core.
+
+📜 License
+
+This project is for educational and portfolio purposes.
